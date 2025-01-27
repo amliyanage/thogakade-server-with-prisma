@@ -13,7 +13,7 @@ app.use('/',(req , res , next) => {
 
 app.use('/customer',customerRoutes)
 
-app.listen(300,(err)=>{
+app.listen(3000,(err)=>{
     console.log("server running on port 3000")
 })
 
