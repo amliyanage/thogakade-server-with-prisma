@@ -17,3 +17,10 @@ model Customer {
   email String @unique
   phone Int @unique
 }
+
+model Item {
+  id String @id
+  name String
+  qty Int
+  price Decimal
+}
