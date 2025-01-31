@@ -11,16 +11,41 @@ datasource db {
 }
 
 model Customer {
-  id String @id
-  name String
-  nic String
-  email String @unique
-  phone Int @unique
+  id        String   @id
+  name      String
+  nic       String
+  email     String   @unique
+  phone     Int      @unique
+  orders    Order[]
 }
 
 model Item {
-  id String @id
-  name String
-  qty Int
+  id    String   @id
+  name  String
+  qty   Int
   price Decimal
+  orderDetails OrderDetails[]
+}
+
+model Order {
+  orderId    Int             @id @default(autoincrement())
+  customerID String
+  orderDate  DateTime?       @default(now()) @db.DateTime(0)
+  customer   Customer        @relation(fields: [customerID], references: [id])
+  orderDetails OrderDetails[]
+
+  @@index([customerID], map: "customerID")
+}
+
+model OrderDetails {
+  orderDetailId Int     @id @default(autoincrement())
+  orderID       Int
+  itemID        String
+  quantity      Int
+  price         Decimal  @db.Decimal(10, 2)
+  order         Order    @relation(fields: [orderID], references: [orderId])
+  item          Item     @relation(fields: [itemID], references: [id])
+
+  @@index([itemID], map: "itemID")
+  @@index([orderID], map: "orderID")
 }

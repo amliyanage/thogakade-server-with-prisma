@@ -1,5 +1,5 @@
 import express from "express"
-import Item from "../module/Item";
+import {Item} from "../module/Item";
 import {add, deleteItem, getAllItems, update} from "../database/prisma-data-item-store";
 
 const router = express.Router()
